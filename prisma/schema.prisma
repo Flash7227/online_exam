@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  is_admin Boolean @default(false)
+  location Location? @relation(fields: [locationId], references: [id])
+  locationId Int?
+  field Field? @relation(fields: [fieldId], references: [id])
+  fieldId Int?
+  results Result[]
+}
+
+model Location {
+  id    Int     @id @default(autoincrement())
+  name  String?
+  user User[]
+}
+
+model Field {
+  id    Int     @id @default(autoincrement())
+  name  String?
+  user User[]
+}
+
+model Type {
+  id    Int     @id @default(autoincrement())
+  name  String?
+  questions Question[]
+}
+
+model Question {
+  id    Int     @id @default(autoincrement())
+  type Type? @relation(fields: [typeId], references: [id])
+  typeId Int?
+  name  String?
+  image  String?
+  answers Answer[]
+}
+
+model Answer {
+  id    Int     @id @default(autoincrement())
+  question Question? @relation(fields: [questionId], references: [id])
+  questionId Int?
+  name  String?
+  is_correct Boolean @default(false)
+}
+
+model Exam {
+  id    Int     @id @default(autoincrement())
+  name  String?
+  questions String @default("[]")
+  is_open Boolean @default(false)
+  due_date String?
+  materials Material[]
+}
+
+model Material {
+  id    Int     @id @default(autoincrement())
+  exam Exam @relation(fields: [examId], references: [id])
+  examId Int
+  material String?
+  result Result[]
+}
+
+model Result {
+  id        Int     @id @default(autoincrement())
+  material  Material @relation(fields: [materialId], references: [id])
+  materialId Int
+  user    User?   @relation(fields: [userId], references: [id])
+  userId  Int?
+}
+
