@@ -16,7 +16,9 @@ datasource db {
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  name  String?
+  name  String? @unique
+  desc String?
+  password String?
   is_admin Boolean @default(false)
   location Location? @relation(fields: [locationId], references: [id])
   locationId Int?

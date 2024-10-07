@@ -1,3 +1,4 @@
+export const revalidate = 0
 import { type NextRequest } from 'next/server'
 import prisma from '@/db'; 
 
