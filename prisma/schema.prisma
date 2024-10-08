@@ -65,6 +65,7 @@ model Answer {
 model Exam {
   id    Int     @id @default(autoincrement())
   name  String?
+  description String?
   questions String @default("[]")
   is_open Boolean @default(false)
   due_date String?
