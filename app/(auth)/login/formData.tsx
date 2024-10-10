@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast"
 
 const formSchema = z.object({
   username: z.string(),
@@ -23,6 +24,7 @@ const formSchema = z.object({
 
 const FormData = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { toast } = useToast();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -44,10 +46,12 @@ const FormData = () => {
       body: JSON.stringify(values)
     });
     const json = await response.json();
+    toast({
+      title: "Response",
+      description: json.desc,
+    })
     if (json.success) {
       location.href="/"
-    } else {
-      // Handle errors
     }
   }
   return (

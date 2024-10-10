@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       headers.set('Content-Type', 'application/json');
 
       return new Response(
-        JSON.stringify({ success: true, user: user.name }), // Example JSON response
+        JSON.stringify({ success: true, desc: 'Амжилттай нэвтэрлээ.' }), // Example JSON response
         {
           status: 200,
           headers,

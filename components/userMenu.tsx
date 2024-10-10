@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { UserRound } from 'lucide-react';
 
 const UserMenu = ({ name }: any) => {
   function logOut() {
@@ -18,7 +19,7 @@ const UserMenu = ({ name }: any) => {
   }
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>{name}</DropdownMenuTrigger>
+      <DropdownMenuTrigger className="flex items-center gap-1"><UserRound size={16}/>{name}</DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Хэрэглэгчийн цэс</DropdownMenuLabel>
         <DropdownMenuSeparator />
